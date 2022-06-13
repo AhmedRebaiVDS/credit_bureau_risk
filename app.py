@@ -18,6 +18,7 @@ list_reports=[{"label":f.split(".")[0] ,"value":f.split(".")[0]} for f in listdi
 
 
 app = Dash(__name__)
+server=app.server
 
 app.layout = html.Div([
     dcc.Upload(
