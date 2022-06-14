@@ -13,12 +13,20 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import pandas as pd
-
+from datetime import datetime
+import random
+import string
 list_reports=[{"label":f.split(".")[0] ,"value":f.split(".")[0]} for f in listdir("./notebooks/EDA/rapports") if isfile(join("./notebooks/EDA/rapports", f))]
-
 
 app = Dash(__name__)
 server=app.server
+
+def get_random_string(length):
+    # choose from all lowercase letter
+    letters = string.ascii_lowercase
+    result_str = ''.join(random.choice(letters) for i in range(length))
+    return result_str
+
 
 app.layout = html.Div([
     dcc.Upload(
@@ -80,20 +88,22 @@ def parse_contents(contents, filename, date):
               State('upload-data', 'filename'),
               State('upload-data', 'last_modified'),
               Input('btn', 'n_clicks'))
-def update_output(list_of_contents, list_of_names, list_of_dates,bnt):
+def update_output(list_of_contents, list_of_names, list_of_dates,btn):
+    print(btn)
     if list_of_contents is not None:
        
         a,b=parse_contents(list_of_contents, list_of_names, list_of_dates)
         changed_id = [p['prop_id'] for p in callback_context.triggered][0]
-        print(changed_id)
+       
 
-        if("btn" in changed_id):
+        if 'btn' in changed_id:
 
+            text=a.split(".")[0]+str(get_random_string(6))
             profile = ProfileReport(b, title="{} Profiling Report".format(a.split(".")[0]))
-            profile.to_file("./assets/rapports/{}.html".format(a.split(".")[0]))
-           
+            profile.to_file("./assets/rapports/{}.html".format(text))
+
             return        [ html.Iframe(
-             src="assets/rapports/{}.html".format(a.split(".")[0]),
+             src="assets/rapports/{}.html".format(text),
              style={"height": "1067px", "width": "100%",'border-style': 'none'})]   
       
         return a
