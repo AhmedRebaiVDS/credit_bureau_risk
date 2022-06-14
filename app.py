@@ -91,7 +91,7 @@ def update_output(list_of_contents, list_of_names, list_of_dates,bnt):
 
             profile = ProfileReport(b, title="{} Profiling Report".format(a.split(".")[0]))
             profile.to_file("./assets/rapports/{}.html".format(a.split(".")[0]))
-            del profile
+           
             return        [ html.Iframe(
              src="assets/rapports/{}.html".format(a.split(".")[0]),
              style={"height": "1067px", "width": "100%",'border-style': 'none'})]   
