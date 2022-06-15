@@ -1,6 +1,6 @@
 
 import dash_html_components as html
-
+import dash_bootstrap_components as dbc
 
 
 
@@ -9,7 +9,7 @@ SIDEBAR_STYLE = {
     "top": 0,
     "left": 0,
     "bottom": 0,
-    "width": "16rem",
+    "width": "18rem",
     "padding": "2rem 1rem",
     "backgroundColor": "#f8f9fa",
 }
@@ -21,23 +21,46 @@ CONTENT_STYLE = {
     "padding": "2rem 1rem",
 }
 
+
 sidebar = html.Div(
     [
-        html.H2("Sidebar", className="display-4"),
-        html.Hr(),
-        html.P(
-            "Welcome to your dashboard", className="lead"
-        ),
-        html.Nav(
+        html.Div(
             [
-                html.A("Home", href="/home"),
-                html.A("EDA", href="/eda"),
-                html.A("Preprocessing", href="/preprocessing"),
+                # width: 3rem ensures the logo is the exact width of the
+                # collapsed sidebar (accounting for padding)
+                html.Img(src="./assets/Value.jpg", style={"width": "3rem"}),
+                html.H2("Dashboard"),
             ],
-           
+            className="sidebar-header",
+        ),
+        html.Hr(),
+        dbc.Nav(
+            [
+                dbc.NavLink(
+                    [html.I(className="fas fa-home me-2"), html.Span("Home")],
+                    href="/",
+                    active="exact",
+                ),
+                dbc.NavLink(
+                    [
+                        html.I(className="fas fa-chart-bar me-2"),
+                        html.Span("EDA"),
+                    ],
+                    href="/eda",
+                    active="exact",
+                ),
+                dbc.NavLink(
+                    [
+                        html.I(className="fas fa-brain me-2"),
+                        html.Span("Preprocessing"),
+                    ],
+                    href="/preprocessing",
+                    active="exact",
+                ),
+            ],
+            vertical=True,
+            pills=True,
         ),
     ],
-    style=SIDEBAR_STYLE,
-    
+    className="sidebar",
 )
-

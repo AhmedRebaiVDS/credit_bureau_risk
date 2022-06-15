@@ -13,7 +13,7 @@ CONTENT_STYLE = {
     "padding": "2rem 1rem",
 }
 
-content = html.Div(preprocessing.layout, style=CONTENT_STYLE)
+content = html.Div(preprocessing.layout, className="content")
 
 layout = html.Div([
     sidebar.sidebar,

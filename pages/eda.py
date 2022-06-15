@@ -12,7 +12,7 @@ CONTENT_STYLE = {
     "padding": "2rem 1rem",
 }
 
-content = html.Div(eda.layout, style=CONTENT_STYLE)
+content = html.Div(eda.layout,  className="content")
 
 layout = html.Div([
     sidebar.sidebar,

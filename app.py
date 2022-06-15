@@ -8,7 +8,7 @@ import dash_auth
 
 users=[['root','root']]
 
-app = Dash(__name__,suppress_callback_exceptions=True,external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = Dash(__name__,suppress_callback_exceptions=True, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME])
 server=app.server
 
 auth=dash_auth.BasicAuth(app,users)
