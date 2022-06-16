@@ -1,8 +1,8 @@
 
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-
-
+from dash import  callback, callback_context,dcc
+from dash.dependencies import Input, Output, State
 
 SIDEBAR_STYLE = {
     "position": "fixed",
@@ -24,6 +24,8 @@ CONTENT_STYLE = {
 
 sidebar = html.Div(
     [
+        html.Div(id="matter"),
+
         html.Div(
             [
                 # width: 3rem ensures the logo is the exact width of the
@@ -38,7 +40,7 @@ sidebar = html.Div(
             [
                 dbc.NavLink(
                     [html.I(className="fas fa-home me-2"), html.Span("Home")],
-                    href="/",
+                    href="/home",
                     active="exact",
                 ),
                 dbc.NavLink(
@@ -57,10 +59,31 @@ sidebar = html.Div(
                     href="/preprocessing",
                     active="exact",
                 ),
+               
             ],
             vertical=True,
             pills=True,
         ),
+        html.Button(
+                    [
+                        html.Span(className="fas fa-power-off me-2"),
+                      
+                    ],
+
+                    id='logout',
+                    className="btn-logout"
+                )
     ],
+
     className="sidebar",
 )
+@callback(  Output('localstorage', 'clear_data'),Output('matter', 'children')
+
+,
+           Input('logout', 'n_clicks'))
+def logout(btn):
+    
+    if btn:
+        return True,dcc.Location(pathname="/",id="maatter")
+    return False,''
+  

@@ -1,10 +1,9 @@
 
-import dash_html_components as html
+from dash import Dash, dcc, Input, Output, html, callback
 
-from components import sidebar
-
-
-
+import matplotlib
+matplotlib.use('Agg')
+from components import navbar
 
 CONTENT_STYLE = {
     "marginLeft": "18rem",
@@ -12,14 +11,9 @@ CONTENT_STYLE = {
     "padding": "2rem 1rem",
 }
 
-
-
-content = html.Div(id="page-content-side-bar", children=[], style=CONTENT_STYLE)
+content = html.Div("",  className="content")
 
 layout = html.Div([
-    sidebar.sidebar,
+    navbar.layout,
     content
 ])
-
-
-    
