@@ -1,7 +1,7 @@
-from doctest import FAIL_FAST
+
 from dash import dcc, Input, Output, html, callback_context, callback,State
-
-
+import requests
+import os
 layout= html.Div([
     html.Div(id="hidden_div_for_redirect_callback"),
 
@@ -16,14 +16,14 @@ layout= html.Div([
         
         html.Div([
             html.Span(className="far fa-user"),
-            dcc.Input(placeholder="Username",id="username",required=True,type="text")
+            dcc.Input(placeholder="Email",id="email",required=True,type="email")
         ],className='form-field d-flex align-items-center'),
         html.Div([
              html.Span(className="fas fa-key"),
             dcc.Input(placeholder="Password",id="password",required=True,type="password")
         ],className='form-field d-flex align-items-center'),
         html.Div([
-            html.Button("log in ",id="submit",className="btn mt-3"),
+           html.Button("Log In",id="SubmitLogin",className="btn mt-3",type="submit" ,n_clicks=0),
            
         ],className="p-3 mt-3"),
         html.Div([
@@ -39,15 +39,19 @@ layout= html.Div([
 @callback    (
               Output('localstorage', 'data'),
               Output('hidden_div_for_redirect_callback', 'children'),
-              State('username', 'value'),
+              
+              Input('SubmitLogin', 'n_clicks'),
+              State('email', 'value'),
               State('password', 'value'),
-              Input('submit', 'n_clicks'),
               )
-def update_output(user,password,btn):
+def update_output(btn,email,password):
 
     changed_id = [p['prop_id'] for p in callback_context.triggered][0]
-    if 'submit' in changed_id:
-        if(user=="root" and password=="root"):
-            return True,dcc.Location(pathname="/home", id="someid_doesnt_matter")
-        return [], ""
+    print(os.environ)
+    
+    if (btn>0 and email and password and "SubmitLogin" in changed_id ):
+            r=requests.post("https://bank-risk-dashboard.herokuapp.com/user/login",json={"email":email,"password":password})
+            if r.status_code==200:
+                return r.json()["token"],dcc.Location(pathname="/home", id="someid_doesnt_matter")
+            return [],""
     return [],""

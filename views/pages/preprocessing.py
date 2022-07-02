@@ -5,7 +5,7 @@ from dash import  html
 import matplotlib
 matplotlib.use('Agg')
 
-from components import sidebar,preprocessing
+from views.components import sidebar,preprocessing
 
 CONTENT_STYLE = {
     "marginLeft": "18rem",

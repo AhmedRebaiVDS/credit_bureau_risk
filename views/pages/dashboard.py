@@ -1,10 +1,10 @@
 
-
 from dash import html
 
-import matplotlib
-matplotlib.use('Agg')
-from components import eda,sidebar
+from views.components import sidebar
+
+
+
 
 CONTENT_STYLE = {
     "marginLeft": "18rem",
@@ -12,7 +12,9 @@ CONTENT_STYLE = {
     "padding": "2rem 1rem",
 }
 
-content = html.Div(eda.layout,  className="content")
+
+
+content = html.Div(id="page-content-side-bar", children=[], style=CONTENT_STYLE)
 
 layout = html.Div([
     sidebar.sidebar,
@@ -20,3 +22,4 @@ layout = html.Div([
 ])
 
 
+    

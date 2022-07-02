@@ -1,9 +1,10 @@
 
-from dash import Dash, dcc, Input, Output, html, callback
+
+from dash import html
 
 import matplotlib
 matplotlib.use('Agg')
-from components import navbar
+from views.components import eda,sidebar
 
 CONTENT_STYLE = {
     "marginLeft": "18rem",
@@ -11,9 +12,11 @@ CONTENT_STYLE = {
     "padding": "2rem 1rem",
 }
 
-content = html.Div("",  className="content")
+content = html.Div(eda.layout,  className="content")
 
 layout = html.Div([
-    navbar.layout,
+    sidebar.sidebar,
     content
 ])
+
+

@@ -1,7 +1,7 @@
 
-import dash_html_components as html
+# import dash_html_components as html
 import dash_bootstrap_components as dbc
-from dash import  callback, callback_context,dcc
+from dash import  callback, callback_context,dcc,html
 from dash.dependencies import Input, Output, State
 
 SIDEBAR_STYLE = {
