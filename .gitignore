@@ -6,7 +6,6 @@ __pycache__/
 
 # data
 data/
-
 notebooks/features engineering/models/
 # C extensions
 *.so
